@@ -156,6 +156,9 @@ Route::get('users/obtener/dpi/{dpi}', 'App\Http\Controllers\UserController@busca
 //rutas roles
 Route::get('roles/delete/{id}', 'App\Http\Controllers\RoleController@destroy');
 
+//rutas permisos
+Route::get('permissions/delete/{id}', 'App\Http\Controllers\PermissionController@destroy');
+
 //rutas empresa
 // Route::get('empresa/nuevo', 'App\Http\Controllers\empresaController@create');
 
