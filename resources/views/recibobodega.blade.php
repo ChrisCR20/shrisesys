@@ -116,7 +116,7 @@
 								</td>
                                 <td></td>
 								<td align="right">
-									Fecha: {{ date('Y-m-d') }}<br />
+									Fecha: {{ \Carbon\Carbon::parse(now()->toDateTime())->setTimezone('America/Guatemala')->format('d-m-Y H:i:s') }}<br />
 								</td>
 							</tr>
 						</table>
