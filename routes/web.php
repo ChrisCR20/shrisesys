@@ -113,10 +113,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('caja/ingreso', 'App\Http\Controllers\cajaController@store');
     
 
-    Route::get('indexcliente', 'App\Http\Controllers\clientesController@index');
+    Route::get('indexcliente', 'App\Http\Controllers\clientesController@index')->name('indexcliente');;
     Route::get('cliente/obtener/{id}', 'App\Http\Controllers\clientesController@mostrarcliente'); 
     Route::post('cliente/ingreso', 'App\Http\Controllers\clientesController@store');
     Route::post('cliente/edicion', 'App\Http\Controllers\clientesController@edit');
+    Route::post('indexasignaprecio/asignapreciostore', 'App\Http\Controllers\clientesController@asignarpr');
+    //rutas asignacion de precio por cliente
+    Route::get('indexasignaprecio/{id_cliente}', 'App\Http\Controllers\clientesController@asignaprecioindex');
+    //
 
     Route::get('indexproveedor', 'App\Http\Controllers\proveedorController@index');
     Route::get('proveedor/obtener/{id}', 'App\Http\Controllers\proveedorController@mostrarproveedor'); 
@@ -133,7 +137,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('indexbodega', 'App\Http\Controllers\BodegaController@index')->name('indexbodega');;
     Route::post('egresobodega/ingreso', 'App\Http\Controllers\BodegaController@store');
     Route::get('egresobodega', 'App\Http\Controllers\BodegaController@create');
-    Route::get('bodega/obtener/p_unitario/{id}', 'App\Http\Controllers\BodegaController@getunitario'); // obtener precio unitario de producto
+    Route::get('bodega/obtener/p_unitario/{id}/{cl}', 'App\Http\Controllers\BodegaController@getunitario'); // obtener precio unitario de producto
     Route::get('bodega/card/{dato}', 'App\Http\Controllers\BodegaController@card1');
     Route::get('verentrega/{idegreso}', 'App\Http\Controllers\BodegaController@edit');
     

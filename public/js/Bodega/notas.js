@@ -89,7 +89,7 @@ function init(){
     
     
                 Swal.fire({
-                    title: 'Confirmar Venta',
+                    title: 'Confirmar Pedido',
                     text: "Una vez enviada la transaccion no se podra revertir",
                     type: 'warning',
                     showCancelButton: true,
@@ -165,12 +165,12 @@ function init(){
     
         tipgradotxt=npr;
         //tipgradotxt=$("#id_producto option:selected").text();
-        nit= $('#identificacion').val();
-    
+        nit= $('#id_cliente').val();
+
     
         if ( (nminstituto!="") ) // verifica si los campos de cantidad estan vacios
         {
-            $.ajax({url:'/bodega/obtener/p_unitario/'+tipgradoval}).done(function(data) 
+            $.ajax({url:'/bodega/obtener/p_unitario/'+tipgradoval+'/'+nit}).done(function(data) 
             {
     
                 nminstituto=parseFloat(nminstituto);
@@ -209,7 +209,7 @@ function init(){
                                     console.log("entro");
                                     $("#filaAca" + element['idfila']).remove();
                                     edx=edx+ parseFloat(element['cantidad']);
-                                    filaAca='<tr class="selected" id="filaAca'+contacade+'"> <td><a id="btn1" style="color:red" onclick="eliminarR('+contacade+','+edx+','+tipgradoval+');"><i class="far fa-trash-alt" aria-hidden="true"></a></td><td><input type="hidden" name="nminstituto[]" value="'+edx+'">'+edx+'</td> <td><input type="hidden" id="tpgrado" name="tpgrado[]" value="'+tipgradoval+'">'+tipgradotxt+'</td><td><input type="hidden" id="nmtitulo" name="nmtitulo[]" value="'+edx*data["precio_venta"]+'"></td>  </tr>';
+                                    filaAca='<tr class="selected" id="filaAca'+contacade+'"> <td><a id="btn1" style="color:red" onclick="eliminarR('+contacade+','+edx+','+tipgradoval+');"><i class="far fa-trash-alt" aria-hidden="true"></a></td><td><input type="hidden" name="nminstituto[]" value="'+edx+'">'+edx+'</td> <td><input type="hidden" id="tpgrado" name="tpgrado[]" value="'+tipgradoval+'">'+tipgradotxt+'</td><td><input type="hidden" id="nmtitulo" name="nmtitulo[]" value="'+edx*data["precio"]+'"></td>  </tr>';
                                 
                                 }
                             }

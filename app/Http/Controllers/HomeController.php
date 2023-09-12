@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -24,6 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $tipousuario= Auth::user()->hasRole('basic');
+        
+        if($tipousuario==true){
+            return view('home');
+        }
+        else{
         $ventas= DB::table('encabezado_factura')
         ->select(DB::raw('count(id_encabezadof) as ventas'))
         ->get();
@@ -39,10 +46,12 @@ class HomeController extends Controller
         $clientes= DB::table('cliente')
         ->select(DB::raw('count(id_cliente) as clientes'))
         ->get();
-
+        return view('home2',compact('ventas','productos','compras','clientes'));
+        }
         
         //dd($ventas);
-        return view('home2',compact('ventas','productos','compras','clientes'));
+        
+  
     }
 
     public function topproductos(Request $request)

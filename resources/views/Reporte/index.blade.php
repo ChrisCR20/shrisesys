@@ -77,6 +77,7 @@
                  
                   </div>
               </div>
+              @can('repventas')
                 <div class="col-lg-4 col-6">
                     <!-- small card -->
                     <div class="small-box" style="background-color: #4682B4">
@@ -93,6 +94,7 @@
                       </a>
                     </div>
                   </div>
+                  
                   <div class="col-lg-4 col-6">
                     <!-- small card -->
                     <div class="small-box bg-warning">
@@ -109,7 +111,7 @@
                       </a>
                     </div>
                   </div>
-
+                  @endcan
         </div>
           <!-- /.card-body -->
         </div>

@@ -100,14 +100,18 @@ class BodegaController extends Controller
          return response()->json($persona);
     }
 
-    public function getunitario($id)
+    public function getunitario($id,$cl)
     {
-
-        $punitario = DB::table('producto')
-        ->select('precio_venta', 'id_producto','cantidad')
+        //dd($cl);
+        $punitario = DB::table('producto as p')
+        ->join('medida as m','m.id_medida','=','p.id_medida')
+        ->join('presentacion_cliente as pc','pc.id_presentacion','=','m.id_medida')
+        ->select('pc.precio', 'p.id_producto','cantidad')
         ->where('id_producto', '=', $id)
+        ->where('id_cliente','=',$cl)
         ->first();
 
+        //dd($punitario);
          return response()->json($punitario);
     }
     /**

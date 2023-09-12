@@ -47,7 +47,11 @@ $(document).ready(function(){
           {
               data:'action',
               name:'action'
-          },            
+          },
+          {
+            data:'asignaprecio',
+            name:'asignaprecio'
+        },            
           
           
       ],           "language": {
@@ -159,6 +163,9 @@ function guardar(e) {
      // toastr.success('Empresa editada exitosamente', 'Buen Trabajo',{timeOut: 2000})
         }
   
-    
+  function asignarprecio(id_cliente)
+  {
+      alert(id_cliente);
+  }  
   
 init();

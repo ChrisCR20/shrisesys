@@ -43,6 +43,7 @@
                       <th>Telefono</th>
                       <th>Direccion</th>
                       <th width=""></th>
+                      <th width=""></th>
                   </tr>
                   </thead>
               </table>
