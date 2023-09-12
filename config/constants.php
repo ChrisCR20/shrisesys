@@ -2,8 +2,3 @@
 
 namespace App;
 
-
-class Constants
-{
-
-}
