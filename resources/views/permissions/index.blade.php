@@ -87,7 +87,7 @@
 
     function eliminar($id)
     {
-        window.location.href='permisos/delete/'+$id;
+        window.location.href='permissions/delete/'+$id;
     }
   </script>
   @endsection
