@@ -106,7 +106,7 @@ class BodegaController extends Controller
         $punitario = DB::table('producto as p')
         ->join('medida as m','m.id_medida','=','p.id_medida')
         ->join('presentacion_cliente as pc','pc.id_presentacion','=','m.id_medida')
-        ->select('pc.precio', 'p.id_producto','cantidad')
+        ->select('pc.precio', 'p.id_producto','p.cantidad')
         ->where('id_producto', '=', $id)
         ->where('id_cliente','=',$cl)
         ->first();

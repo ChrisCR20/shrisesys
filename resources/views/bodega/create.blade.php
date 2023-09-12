@@ -32,7 +32,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                   </div>
-                  <input type="text"name="fechafactv" id="fechafactv" class="form-control"  value="{{ date('Y-m-d') }}" disabled>
+                  <input type="text"name="fechafactv" id="fechafactv" class="form-control"  value="{{ \Carbon\Carbon::parse(now()->toDateTime())->setTimezone('America/Guatemala')->format('Y-m-d') }}" disabled>
                   <input type="hidden" class="form-control" id="id_tipopago" value="1">
               </div>
           </div>
