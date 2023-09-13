@@ -12,7 +12,7 @@
       <div class="col-md-12">
         <div class="card card-outline  " >
           <div class="card-header" style="background-color:  #5F9EA0">
-            <h3 style="color: white" class="card-title">Egreso de bodega</h3>
+            <h3 style="color: white" class="card-title">Salida de bodega</h3>
           </div>
           <div class="card-body">
             <div class="row">

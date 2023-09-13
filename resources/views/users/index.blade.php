@@ -31,6 +31,7 @@
                 </span>
             </div>
             <div class="card-body">
+                <div class="table-responsive">
                 <table class="table" id="tablausuarios">
                     <thead class="thead-light">
                         <tr>
@@ -75,6 +76,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
                 {{-- {{ $data->render() }} --}}
             </div>

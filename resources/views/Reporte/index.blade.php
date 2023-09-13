@@ -33,7 +33,7 @@
                       <div class="inner">
                         <h3></br></h3>
         
-                        <p>Reporte de productos</p>
+                        <p>Existencia de productos</p>
                       </div>
                       <div class="icon">
                         <i class="fas fa-chart-bar"></i>

@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Rise</b>Sys',
-    'logo_img' => 'vendor/adminlte/dist/img/logosr.png',
+    'logo_img' => 'vendor/adminlte/dist/img/logosh.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/logosr.png',
+            'path' => 'vendor/adminlte/dist/img/logosh.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 100,
@@ -397,13 +397,13 @@ return [
             'can'  => 'Ventas',
         ],
         [
-            'text' => 'Egreso de bodega',
+            'text' => 'Salida de bodega',
             'url'  => 'egresobodega',
             'icon' => 'fa fa-check-square',
             'can'  => 'EgresoBodega',
         ],
         [
-            'text' => 'Listado de egresos de bodega',
+            'text' => 'Listado de salidas de bodega',
             'url'  => 'indexbodega',
             'icon' => 'fa fa-check-square',
             'can'  => 'ListadoBodega',

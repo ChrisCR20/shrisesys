@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Egresos de bodega</a></li>
+                <li class="breadcrumb-item"><a href="#">Salidas de bodega</a></li>
                 <li class="breadcrumb-item active">Listado</li>
               </ol>
             </div>
@@ -20,7 +20,7 @@
       </section>
       <div class="card">
         <div class="card-header" style="background-color: #4682B4">
-          <h3 style="color: white">Egresos</h3>
+          <h3 style="color: white">Salidas</h3>
             <span class="float-right">
                 <a class="btn btn-light btn-sm" href="{{ route('home') }}"><div><i style="color:gray" class="fa fa-arrow-left"></i></div></a>
             </span>

@@ -105,7 +105,7 @@ class reporteController extends Controller
                 $pdf->save($path . '/' . $fileName);
         
                 $pdf = public_path('facturas/'.$fileName);
-                return response()->download($pdf);
+                return response()->download($pdf)->deleteFileAfterSend(true);;
 
 
     }
