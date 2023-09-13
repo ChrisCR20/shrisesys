@@ -314,7 +314,7 @@ return [
 
         ],
         [
-            'text'        => 'Datos del negocio',
+            'text'        => 'Datos de la bodega',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-building',
             'can' => 'negocio.config',
