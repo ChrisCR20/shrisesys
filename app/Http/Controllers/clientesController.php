@@ -170,7 +170,7 @@ class clientesController extends Controller
         $data1 = DB::table('presentacion_cliente as pc')
         ->join('cliente as c','pc.id_cliente','=','c.id_cliente')
         ->join('medida as m','pc.id_presentacion','=','m.id_medida')
-        ->select('c.id_cliente','c.nombrecliente','m.id_medida','m.nombremedida','pc.precio')
+        ->select('c.id_cliente','c.nombrecliente','m.id_medida','m.nombremedida','pc.precio','pc.id_prcl')
         ->where('c.id_cliente','=',$id)
         ->get();
         
@@ -178,7 +178,7 @@ class clientesController extends Controller
         //dd($data1);
         //dd(Arr::get($data,'idsedecentral'));
         if(count($data1) ==0){
-            $etapas1=[["precio"=>"","nombremedida"=>"","id_cliente"=>""]];
+            $etapas1=[["precio"=>"","nombremedida"=>"","id_cliente"=>"","id_prcl"=>""]];
         }else{
         foreach($data1 as $data1 => $valor){
             $etapas1[] = (array)$valor;
@@ -186,7 +186,7 @@ class clientesController extends Controller
         //dd($etapas1);
 
         return datatables()->of($etapas1)->addColumn('action',function ($row){
-            $btn = '<a class="btn  btn-md" style="color:#C8A60A" title="Editar"  onClick="editar('.$row['id_cliente'].');" ><div><i class="fa fa-edit"></i></div></a>';
+            $btn = '<a class="btn  btn-md" style="color:#C8A60A" title="Editar"  onClick="editar('.$row['id_prcl'].');" ><div><i class="fa fa-edit"></i></div></a>';
            
           // $btn = '<button type="button" onClick="editar('.$row['id_sede'].');" class="edit btn btn-warning btn-sm"><div><i class="fa fa-edit"></i></div></button>';
            return $btn;
@@ -221,6 +221,40 @@ class clientesController extends Controller
     
         return response()->json($asignapr);
 
+    }
+
+    public function mostraritem($id)
+    {
+        $item = DB::table('presentacion_cliente as pc')
+        ->join('medida as pr', 'pc.id_presentacion', '=', 'pr.id_medida')
+        ->select('pc.id_prcl','pr.nombremedida', 'pc.precio', 'pc.id_cliente')
+        ->where('pc.id_prcl', '=', $id)
+        ->get();
+
+        return response()->json($item);
+    }
+
+    public function actu(Request $request)
+    {
+        //dd($request);
+        try {
+
+                $productoupdate = asigna_precio::findOrFail($request->iditem);
+                $productoupdate->precio = $request->precio;
+                $productoupdate->save();
+
+
+            
+                return true;
+            
+        } catch (Throwable $e) {
+            report($e);
+     
+            return false;
+        }
+        //dd($request->cantidad,$request->subtotal);
+    
+        //dd('chile');
     }
 
 

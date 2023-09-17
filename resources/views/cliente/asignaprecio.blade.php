@@ -4,6 +4,7 @@
 @section('plugins.Sweetalert2', true)
 @section('content')
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+@include('cliente/modaleditaritem')
 <div class="container">
 
   <div class="justify-content-center">
@@ -33,13 +34,7 @@
 </div>
   <div class="card-body">
 {{-- <form method="post" id="compra_form"> --}}
-
-
-
-              <div class="form-group row">
-              </div>
-              <div class="form-group row post">
-              </div>
+            <div class="table-responsive">
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <table id="tablasigna" class="table table-striped table-bordered">
                 <thead>
@@ -51,6 +46,7 @@
                 </thead>
 
                 </table>
+            </div>
             </div>
 {{--         
     </form> --}}
@@ -146,6 +142,61 @@ function asignarp(e) {
     });
     
   }
+
+  function editar(id_presentacionprecio){ 
+     
+     var idetallepp = id_presentacionprecio;
+     $.ajax({url:'cliente/obteneritem/'+idetallepp}).done(function(data){
+         console.log(data);
+         $('#presentacion').val(data[0].nombremedida);
+         $('#precio').val(data[0].precio);
+         $('#iditem').val(data[0].id_prcl);
+
+   
+         console.log(data);
+     });
+   
+     $('#modaleditaritem').modal('show');
+   
+     }
+
+     document.getElementById("dog")
+    .addEventListener("click", function(event) {
+
+        event.preventDefault();
+    
+    
+
+       var precio = $('#precio').val();
+       var iditem = $('#iditem').val();
+
+        
+        $.ajax({
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+       url:"edicion",
+       type:"POST",
+       data: {precio:precio,iditem:iditem},
+       success: function(e){
+       // console.log(e[0].totalcompra)
+       // $('#total').val(e[0].totalcompra);
+        toastr.success('Item editado exitosamente', 'Buen Trabajo',{timeOut: 2000});
+       // console.log(data);
+        // alert('nada');
+       // $('#compra_item_edit')[0].reset();
+        $('#tablasigna').DataTable().ajax.reload()
+       //   $('#tick_titulo').val('');
+         $('#modaleditaritem').modal('hide')
+
+ 
+
+       }
+      
+     
+     });
+
+    });
   init();
 
         

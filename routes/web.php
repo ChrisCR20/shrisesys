@@ -120,6 +120,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('indexasignaprecio/asignapreciostore', 'App\Http\Controllers\clientesController@asignarpr');
     //rutas asignacion de precio por cliente
     Route::get('indexasignaprecio/{id_cliente}', 'App\Http\Controllers\clientesController@asignaprecioindex');
+    Route::get('indexasignaprecio/cliente/obteneritem/{id}', 'App\Http\Controllers\clientesController@mostraritem');
+    Route::post('indexasignaprecio/edicion', 'App\Http\Controllers\clientesController@actu'); 
     //
 
     Route::get('indexproveedor', 'App\Http\Controllers\proveedorController@index');
