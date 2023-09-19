@@ -41,28 +41,11 @@
                       <th>Cantidad</th>
                       <th>Categoria</th>
                       <th>Marca </th>
-                      <th>Medida</th>
+                      <th>Presentacion</th>
                       <th width=""></th>
                   </tr>
                   </thead>
                   <tbody>
-                   @foreach ($etapas as $key => $producto)
-                    <tr>
-                        <td>{{ $producto['codigoproducto'] }}</td>
-                        <td>{{ $producto['nombreproducto'] }}</td>
-                        <td>{{ $producto['cantidad'] }}</td>
-                        <td>{{ $producto['nombrecategoria'] }}</td>
-                        <td>{{ $producto['nombremarca'] }}</td>
-                        <td>{{ $producto['nombremedida'] }}</td>
-                        <td>
-                             @can('user-edit')
-                              {{-- <a class="btn  btn-md" style="color:#" title="Editar" href="{{ route('producto.edit',$producto['codigoproducto'] ) }}"><div><i class="fa fa-edit "></i></div></a>
-                                --}}
-                            <a class="btn  btn-md" style="color:#C8A60A" title="Editar"  href="{{ route('producto.edit',$producto['id_producto']) }}"><div><i class="fa fa-edit "></i></div></a>
-                            @endcan
-                        </td>
-                    </tr>
-                    @endforeach 
                   </tbody>
               </table>
             </div>
@@ -77,22 +60,60 @@
     $.ajaxSetup({
     headers:{'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
 });
-    $(function () {
 
-   var t=   $("#tablaproducto").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false, "paging": true, "pageLength": 5,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-        "language": {
-       "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-          }
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-    });
-
-    function eliminar($id)
-    {
+    $.ajaxSetup({
+      headers:{'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+      });
       
-    }
+      $(document).ready(function(){
+        $('#tablaproducto').DataTable({
+            "responsive": false,
+            "autoWidth": false,
+           "searching": true,
+           "lengthChange": true,
+            "ajax":{
+                url:'indexproducto',
+                type: "get",
+                dataType: "json",
+            },
+            columns :[
+                {
+                    data:'codigoproducto',
+                    name:'codigoproducto'
+                },
+                {
+                  data:'nombreproducto',
+                  name:'nombreproducto'
+                 },
+                {
+                    data:'cantidad',
+                    name:'cantidad'
+                },
+                {
+                    data:'nombrecategoria',
+                    name:'nombrecategoria'
+                },
+                {
+                    data:'nombremarca',
+                    name:'nombremarca'
+                },
+                {
+                    data:'nombremedida',
+                    name:'nombremedida'
+                },
+                {
+                    data:'action',
+                    name:'action'
+                },         
+                
+            ],           "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+                });
+      
+      
+      });
 
   </script>
   @endsection

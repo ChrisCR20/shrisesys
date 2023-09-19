@@ -18,29 +18,40 @@ class productoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        //
+        if($request->ajax())
+        {      
+            $data = DB::table('producto as p')
+            ->join('marca as m','p.id_marca','=','m.id_marca')
+            ->join('categoría as cat','p.id_categoria','=','cat.id_categoria')
+            ->join('medida as med','p.id_medida','=','med.id_medida')
+            ->join('sucursal as su','su.id_sucursal','=','p.id_sucursal')
+            ->join('sucursal_empleado as se','se.id_sucursal','=','su.id_sucursal')
+            ->where('se.id_persona','=',Auth::user()->id_empleado)
+            ->select('p.codigoproducto','p.nombreproducto','p.cantidad','cat.nombrecategoria','m.nombremarca','med.nombremedida','p.id_producto')
+            ->get();
+    
+            if(count($data) ==0){
+                $etapas=[];
+            }else{
+            foreach($data as $data => $valor){
+                $etapas[] = (array)$valor;
+            }}
+     
 
-        $data = DB::table('producto as p')
-        ->join('marca as m','p.id_marca','=','m.id_marca')
-        ->join('categoría as cat','p.id_categoria','=','cat.id_categoria')
-        ->join('medida as med','p.id_medida','=','med.id_medida')
-        ->join('sucursal as su','su.id_sucursal','=','p.id_sucursal')
-        ->join('sucursal_empleado as se','se.id_sucursal','=','su.id_sucursal')
-        ->where('se.id_persona','=',Auth::user()->id_empleado)
-        ->select('p.codigoproducto','p.nombreproducto','p.cantidad','cat.nombrecategoria','m.nombremarca','med.nombremedida','p.id_producto')
-        ->get();
-        // dd($data);
-        if(count($data) ==0){
-            $etapas=[];
-        }else{
-        foreach($data as $data => $valor){
-            $etapas[] = (array)$valor;
-        }}
-            //   dd($etapas);
-        return view('producto.index',['etapas'=>$etapas]);
+             return datatables()->of($etapas)->addColumn('action',function ($row){
+                 $btn = '<a class="btn  btn-md" style="color:#A60A" title="Editar"  href="'.route('producto.edit',$row['id_producto']).'" ><div><i class="fa fa-edit"></i></div></a>';
+
+               // $btn = '<button type="button" onClick="editar('.$row['id_sede'].');" class="edit btn btn-warning btn-sm"><div><i class="fa fa-edit"></i></div></button>';
+                return $btn;
+             
+             })->rawColumns(['action'])->make(true);
+        }
+
+        return view('producto.index');
+  
     }
 
     /**

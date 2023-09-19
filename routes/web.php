@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('caja',cajaController::class);
      //Route::resource('venta',ventaController::class);
      Route::get('perfil', 'App\Http\Controllers\empleadoController@perfil'); 
+
+     Route::get('indexproducto', 'App\Http\Controllers\productoController@index')->name('indexproducto');
     //Categoria
     Route::get('indexcategoria', 'App\Http\Controllers\categoriaController@index'); 
     Route::post('producto/ingreso', 'App\Http\Controllers\categoriaController@store');// crear categoria con modal en vista producto
@@ -136,7 +138,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('masvendidos', 'App\Http\Controllers\reporteController@masvendido')->name('reporte.masvendidos');
 
     //rutas bodega
-    Route::get('indexbodega', 'App\Http\Controllers\BodegaController@index')->name('indexbodega');;
+    Route::get('indexbodega', 'App\Http\Controllers\BodegaController@index')->name('indexbodega');
     Route::post('egresobodega/ingreso', 'App\Http\Controllers\BodegaController@store');
     Route::get('egresobodega', 'App\Http\Controllers\BodegaController@create');
     Route::get('bodega/obtener/p_unitario/{id}/{cl}', 'App\Http\Controllers\BodegaController@getunitario'); // obtener precio unitario de producto

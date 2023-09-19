@@ -39,7 +39,7 @@
           <h2 style="color:white">Editar Producto</h2>
         <a class="btn btn-primary btn-sm" id="btnnuevacategoria"><i class="fa fa-plus" aria-hidden="true"></i> Categoria</a>
         <a class="btn btn-secondary btn-sm" id="btnnuevamarca"><i class="fa fa-plus" aria-hidden="true"></i> Marca</a>
-        <a class="btn btn-warning btn-sm" id="btnnuevamedida"><i class="fa fa-plus" aria-hidden="true"></i> Medida</a>
+        <a class="btn btn-warning btn-sm" id="btnnuevamedida"><i class="fa fa-plus" aria-hidden="true"></i> Presentacion</a>
         <span class="float-right">
           <a class="btn btn-light btn-sm" href="{{ route('producto.index') }}"><div><i style="color:gray" class="fa fa-arrow-left"></i></div></a>
         </span>
@@ -78,7 +78,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Unidad de medida</label>
+                    <label for="exampleInputPassword1">Presentacion</label>
                     <select class="form-control select2" id="id_medida" name="id_medida" style="width: 100%;">
                       <option value={{$data[0]->id_medida}}>{{$data[0]->nombremedida}}</option>
                     </select>
