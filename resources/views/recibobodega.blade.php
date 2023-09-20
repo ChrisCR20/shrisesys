@@ -112,7 +112,7 @@
 						<table>
 							<tr>
 								<td class="title">
-									<img src="vendor/adminlte/dist/img/logosr.png" style="width: 50%; max-width: 150px" />
+									<img src="vendor/adminlte/dist/img/logosh.png" style="width: 50%; max-width: 150px" />
 								</td>
                                 <td></td>
 								<td align="right">
