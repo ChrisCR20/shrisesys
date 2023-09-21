@@ -29,8 +29,9 @@ class productoController extends Controller
             ->join('medida as med','p.id_medida','=','med.id_medida')
             ->join('sucursal as su','su.id_sucursal','=','p.id_sucursal')
             ->join('sucursal_empleado as se','se.id_sucursal','=','su.id_sucursal')
-            ->where('se.id_persona','=',Auth::user()->id_empleado)
             ->select('p.codigoproducto','p.nombreproducto','p.cantidad','cat.nombrecategoria','m.nombremarca','med.nombremedida','p.id_producto')
+            ->where('se.id_persona','=',Auth::user()->id_empleado)
+            ->orderby('med.nombremedida','asc')
             ->get();
     
             if(count($data) ==0){
