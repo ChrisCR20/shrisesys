@@ -53,11 +53,12 @@ function reporteproducto(){
     $.ajax({url:'rproductoindex',         xhrFields: {
         responseType: 'blob'
     }}).done(function(e){
-
+        var date = new Date();
+        var dater=date.getFullYear()+'s'+date.getMinutes()+date.getSeconds();
         var blob = new Blob([e]);
                                         var link = document.createElement('a');
                                         link.href = window.URL.createObjectURL(blob);
-                                        link.download = "Productos.pdf";
+                                        link.download = "Productos-"+dater+".pdf";
                                         link.click();
                                         swal.close();
                             
@@ -81,11 +82,12 @@ function reportebajaexistencia(){
     $.ajax({url:'rbajaexistencia',         xhrFields: {
         responseType: 'blob'
     }}).done(function(e){
-
+        var date = new Date();
+        var dater=date.getFullYear()+'s'+date.getMinutes()+date.getSeconds();
         var blob = new Blob([e]);
                                         var link = document.createElement('a');
                                         link.href = window.URL.createObjectURL(blob);
-                                        link.download = "ProductosBajaExistencia.pdf";
+                                        link.download = "BajaExistencia-"+dater+".pdf";
                                         link.click();
                                         swal.close();
                             
@@ -109,11 +111,12 @@ function reportemasvendidos(){
     $.ajax({url:'masvendidos',         xhrFields: {
         responseType: 'blob'
     }}).done(function(e){
-
+        var date = new Date();
+        var dater=date.getFullYear()+'s'+date.getMinutes()+date.getSeconds();
         var blob = new Blob([e]);
                                         var link = document.createElement('a');
                                         link.href = window.URL.createObjectURL(blob);
-                                        link.download = "Top15masVendidos.pdf";
+                                        link.download = "15masVendidos-"+dater+".pdf";
                                         link.click();
                                         swal.close();
                             
@@ -140,11 +143,12 @@ function reporteventas()
     $.ajax({url:'rventasindex/'+fechai+'/'+fechaf,         xhrFields: {
         responseType: 'blob'
     }}).done(function(e){
-
+        var date = new Date();
+        var dater=date.getFullYear()+'s'+date.getMinutes()+date.getSeconds();
         var blob = new Blob([e]);
                                         var link = document.createElement('a');
                                         link.href = window.URL.createObjectURL(blob);
-                                        link.download = "Ventas.pdf";
+                                        link.download = "Ventas-"+dater+".pdf";
                                         link.click();
                                         swal.close();
                                         $('#modalreporteventas').modal('hide');

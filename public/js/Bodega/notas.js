@@ -118,10 +118,13 @@ function init(){
                                             responseType: 'blob'
                                         },
                                         success: function(e){
+                                            var date = new Date();
+                                            var dater=date.getFullYear()+'s'+date.getMinutes()+date.getSeconds();
+                                            console.log(e);
                                             var blob = new Blob([e]);
                                             var link = document.createElement('a');
                                             link.href = window.URL.createObjectURL(blob);
-                                            link.download = "Factura.pdf";
+                                            link.download = "Pedido-"+dater+".pdf";
                                             link.click();
                                         $('#venta_form')[0].reset();
                                         toastr.success('Factura registrada correctamente', 'Buen Trabajo',{timeOut: 5000})

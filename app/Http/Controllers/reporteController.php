@@ -35,7 +35,7 @@ class reporteController extends Controller
         ->join('medida','medida.id_medida','=','producto.id_medida')
         ->select('producto.codigoproducto','producto.nombreproducto','producto.cantidad','marca.nombremarca','categoría.nombrecategoria','medida.nombremedida')
         ->where('producto.id_sucursal','=',$sucursalemp[0]->id_sucursal)
-        ->whereIn('producto.cantidad',['0','1','2'])
+        ->whereIn('producto.cantidad',['0','1','2','3','4','5'])
         ->orderby('producto.cantidad','asc')
         ->get();
         
