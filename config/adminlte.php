@@ -430,16 +430,19 @@ return [
                     'text' => 'Proveedores',
                     'url'  => 'proveedor',
                     'icon'    => 'fas fa-fw fa-users',
+                    'can' => 'proveedores.index',
                 ],
                 [
                     'text' => 'Compras',
                     'url'  => 'indexcompras',
                     'icon'    => 'fas fa fa-cart-arrow-down',
+                    'can' => 'compras.index',
                 ],
                 [
                     'text' => 'Productos',
                     'url'  => 'producto',
-                    'icon' => 'fa fa-tag'
+                    'icon' => 'fa fa-tag',
+                    'can' => 'productos.index',
                 ],
                 [
 
