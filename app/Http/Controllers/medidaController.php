@@ -99,7 +99,7 @@ class medidaController extends Controller
         //dd($data1);
         //dd(Arr::get($data,'idsedecentral'));
         if(count($data1) ==0){
-            $etapas1=[["precio"=>"","nombremedida"=>"","id"=>""]];
+            $etapas1=[["precio_costo"=>"","nombremedida"=>"","id"=>""]];
         }else{
         foreach($data1 as $data1 => $valor){
             $etapas1[] = (array)$valor;
