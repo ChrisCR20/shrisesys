@@ -26,7 +26,7 @@
       </section>
       <div class="card">
         <div class="card-header" style="background-color: #4682B4">
-          <h3 style="color: white">Productos</h3>
+          <h3 style="color: white">Existencias</h3>
               <span class="float-right" >
                 <a class="btn btn-sm btn-light"  title="Agregar" href="{{ route('producto.create') }}"><div><i  style="color: gray" class="fa fa-plus"></i></div></a>
               </span>

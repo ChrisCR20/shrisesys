@@ -6,9 +6,9 @@ function init(){
           guardar(e);
         });
     // dispara la funcion para crear cliente
-        $("#cliente_form").on("submit",function(e)
+        $("#cantidadform").on("submit",function(e)
         {
-          guardarcl(e);
+          agregarest(e);
         });
 
         $('.select2').select2()
@@ -147,6 +147,17 @@ function init(){
                 toastr.warning('Debe agregar al menos un item a la factura', 'Atención',{timeOut: 2500})
             }
     }
+
+    function openmodalcantidad(idpr,npr){
+        $('#idproducto').val('');
+        $('#nombreproducto').val('');
+        $('#cantidadm').val('');
+
+        $('#modalcantidad').modal('show');
+
+        $('#idproducto').val(idpr);
+        $('#nombreproducto').val(npr);
+    }
     //finaliza la funcion guardar venta
     
     //inicia funcion para agregar items a la tabla dinamica
@@ -154,10 +165,18 @@ function init(){
     var contacade=0;// contador para las filas de la tabla
     var items2=[]; // arreglo de id's y productos que se van agregando a la tabla
     
-    function agregarest(idpr,npr)
+    function agregarest()
     {
+        $('#modalcantidad').modal('hide');
+
+        idpr=$('#idproducto').val();
+        npr=$('#nombreproducto').val();
+        cant1=$('#cantidadm').val();
+        //$('#modalcantidad').modal('show');
+
         var sumsubtotales=0; // variable para le subtotal general
-        var edx=0; //variable que suma los subtotales por cada producto
+        var edx=0;//variable que suma los subtotales por cada producto
+        var cantidadmodal=parseFloat(cant1); 
         var cantid2=0;
     
     
@@ -175,10 +194,11 @@ function init(){
         {
             $.ajax({url:'/bodega/obtener/p_unitario/'+tipgradoval+'/'+nit}).done(function(data) 
             {
-    
-                nminstituto=parseFloat(nminstituto);
+                console.log(data["cantidad"]);
+                nminstituto=parseFloat(cantidadmodal);
                     if(data["cantidad"]<nminstituto)
                         {
+                            
                             Swal.fire(
                                 'Pocas Existencias',
                                 'Tiene '+data["cantidad"]+' unidades disponibles en bodega',
@@ -188,7 +208,7 @@ function init(){
                         }
                      else
                      {
-                        items2.push({"id":tipgradoval,"cantidad":nminstituto,"idfila":contacade});
+                        items2.push({"id":tipgradoval,"cantidad":cantidadmodal,"idfila":contacade});
                         console.log(items2);
                         items2.forEach(element => {
                            

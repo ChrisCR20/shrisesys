@@ -11,8 +11,8 @@
             <th>Cliente</th>
             <th>Monto de venta</th>
             <th>Producto</th>
-            <th>Precio Costo</th>
             <th>Cantidad vendida</th>
+            <th>Precio Costo</th>
             <th>Subtotal</th>
             <th>Ganancia</th>
         </tr>
@@ -24,8 +24,8 @@
                 <td>{{ $ven->nombrecliente }}</td>
                 <td>{{ $ven->montototal }}</td>
                 <td>{{ $ven->nombreproducto }}</td>
-                <td>{{ $ven->costo }}</td>
                 <td>{{ $ven->cantidad }}</td>
+                <td>{{ $ven->costo }}</td>
                 <td>{{ $ven->subtotal }}</td>
                 <td>{{ $ven->ganancia }}</td>
             </tr>

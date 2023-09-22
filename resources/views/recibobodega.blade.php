@@ -128,7 +128,7 @@
 						<table>
 							<tr>
 								<td width="30%">
-									Hilos Shekina<br />
+									Hilos Shekinah<br />
 									Salcaja<br />
 									Guatemala Centroamerica 
 								</td>
@@ -172,8 +172,8 @@
 
 				<tr class="total">
 					<td></td>
-                    <td></td>
-					{{-- <td align="right">Total Q.{{ $encabezadof['0']->montototal }}</td> --}}
+                    <td align="right">Total:</td>
+					<td align="left">{{ $encabezadof['0']->cantidad }}</td>
 				</tr>
 			</table>
 		</div>

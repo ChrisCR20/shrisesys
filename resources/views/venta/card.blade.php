@@ -23,7 +23,7 @@
       </div>
       <div class="card-footer">
         <div class="text-right">
-          <a href="#" class="btn btn-sm btn-primary" onClick="agregarest('{{ $producto->id_producto }}','{{ $producto->nombreproducto }}');" >
+          <a href="#" class="btn btn-sm btn-primary" onClick="openmodalcantidad('{{ $producto->id_producto }}','{{ $producto->nombreproducto }}');" >
             <i class="fas fa-plus"></i>
           </a>
         </div>

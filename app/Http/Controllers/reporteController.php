@@ -123,8 +123,10 @@ class reporteController extends Controller
             ->join('cliente','cliente.id_cliente','=','encabezado_factura.id_cliente')
             ->join('producto','detalle_factura.id_producto','=','producto.id_producto')
             ->join('caja','caja.id_caja','=','encabezado_factura.id_caja')
-            ->select('encabezado_factura.id_encabezadof','cliente.nombrecliente','encabezado_factura.montototal','producto.nombreproducto',DB::raw('producto.precio_costo * detalle_factura.cantidad as costo'),
-            'detalle_factura.cantidad','detalle_factura.subtotal',DB::raw('detalle_factura.subtotal-(producto.precio_costo *detalle_factura.cantidad) as ganancia'),)
+            ->join('medida','medida.id_medida','=','producto.id_medida')
+            ->join('presentacion_costo','presentacion_costo.id_medida','=','medida.id_medida')
+            ->select('encabezado_factura.id_encabezadof','cliente.nombrecliente','encabezado_factura.montototal','producto.nombreproducto',DB::raw('presentacion_costo.precio_costo * detalle_factura.cantidad as costo'),
+            'detalle_factura.cantidad','detalle_factura.subtotal',DB::raw('detalle_factura.subtotal-(presentacion_costo.precio_costo *detalle_factura.cantidad) as ganancia'),)
             ->where('caja.id_sucursal','=',$sucursalemp[0]->id_sucursal)
             ->whereBetween('encabezado_factura.fecha',[$fechai,$fechaf])
             ->orderby('encabezado_factura.id_encabezadof','asc')
@@ -135,8 +137,10 @@ class reporteController extends Controller
             ->join('cliente','cliente.id_cliente','=','encabezado_factura.id_cliente')
             ->join('producto','detalle_factura.id_producto','=','producto.id_producto')
             ->join('caja','caja.id_caja','=','encabezado_factura.id_caja')
-            ->select(DB::raw('sum(producto.precio_costo * detalle_factura.cantidad) as tcosto'),
-            DB::raw('sum(detalle_factura.cantidad) as tcantidad'),DB::raw('sum(detalle_factura.subtotal) as tsubtotal'),DB::raw('sum(detalle_factura.subtotal-(producto.precio_costo *detalle_factura.cantidad)) as tganancia'),)
+            ->join('medida','medida.id_medida','=','producto.id_medida')
+            ->join('presentacion_costo','presentacion_costo.id_medida','=','medida.id_medida')
+            ->select(DB::raw('sum(presentacion_costo.precio_costo * detalle_factura.cantidad) as tcosto'),
+            DB::raw('sum(detalle_factura.cantidad) as tcantidad'),DB::raw('sum(detalle_factura.subtotal) as tsubtotal'),DB::raw('sum(detalle_factura.subtotal-(presentacion_costo.precio_costo *detalle_factura.cantidad)) as tganancia'),)
             ->where('caja.id_sucursal','=',$sucursalemp[0]->id_sucursal)
             ->whereBetween('encabezado_factura.fecha',[$fechai,$fechaf])
             ->orderby('encabezado_factura.id_encabezadof','asc')

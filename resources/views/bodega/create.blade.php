@@ -4,6 +4,7 @@
 @section('plugins.Sweetalert2', true)
 @section('content')
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+@include('bodega/modalcantidad')
 </br>
 <div class="container-fluid">
     <div class="row">

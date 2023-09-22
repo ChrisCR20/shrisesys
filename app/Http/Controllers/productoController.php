@@ -43,8 +43,9 @@ class productoController extends Controller
      
 
              return datatables()->of($etapas)->addColumn('action',function ($row){
-                 $btn = '<a class="btn  btn-md" style="color:#A60A" title="Editar"  href="'.route('producto.edit',$row['id_producto']).'" ><div><i class="fa fa-edit"></i></div></a>';
-
+                 Auth::user()->hasPermissionTo('productos.edit')
+                 ? $btn = '<a class="btn  btn-md" style="color:#A60A" title="Editar"  href="'.route('producto.edit',$row['id_producto']).'" ><div><i class="fa fa-edit"></i></div></a>'
+                 : $btn = ' ';
                // $btn = '<button type="button" onClick="editar('.$row['id_sede'].');" class="edit btn btn-warning btn-sm"><div><i class="fa fa-edit"></i></div></button>';
                 return $btn;
              

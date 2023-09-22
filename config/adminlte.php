@@ -359,6 +359,12 @@ return [
                     'icon' => 'fa fa-chart-bar',
                     'can' =>  'reportes.rise'
                 ],
+                [
+                    'text' => 'Asignar precio costo',
+                    'url'  => 'asignarpreciocosto',
+                    'icon' => 'fa fa-bookmark',
+                    'can' =>  'precio.costo'
+                ]
             ]
 
         ],

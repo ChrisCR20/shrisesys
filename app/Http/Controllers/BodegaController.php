@@ -161,8 +161,9 @@ class BodegaController extends Controller
             }}
 
         
-        $encabezadof =  DB::table('encabezado_factura')
-        ->where('encabezado_factura.id_encabezadof','=',$facturaC->id_encabezadof)
+        $encabezadof =  DB::table('detalle_factura')
+        ->where('detalle_factura.id_encabezadof','=',$facturaC->id_encabezadof)
+        ->select(DB::raw("sum(cantidad) as cantidad"))
         ->get();
         
         $detallef= DB::table('detalle_factura')

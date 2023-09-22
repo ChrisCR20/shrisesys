@@ -73,8 +73,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('getmarcas',[marcaController::class,'obtenermarca'])->name('getmarcass');
 
     //Medida
+    Route::get('asignarpreciocosto', 'App\Http\Controllers\medidaController@asignapreciocosto')->name('asignapreciocosto');
     Route::post('producto/crearmedida', 'App\Http\Controllers\medidaController@store'); // crear medida con modal en vista producto
     Route::post('getmedidas',[medidaController::class,'obtenermedida'])->name('getmedidass');
+    //rutas asignacion de precio costo
+    Route::post('asignapreciostore', 'App\Http\Controllers\medidaController@asignarpr');
+    Route::get('asignarpreciocosto/{id_cliente}', 'App\Http\Controllers\medidaController@asignaprecioindex');
+    Route::get('obteneritem/{id}', 'App\Http\Controllers\medidaController@mostraritem');
+    Route::post('edicion', 'App\Http\Controllers\medidaController@actu'); 
+    //
 
     //Compras
    
