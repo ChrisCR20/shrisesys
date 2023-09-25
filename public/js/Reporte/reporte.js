@@ -69,7 +69,7 @@ function reporteproducto(){
                                         link.download = "Productos-"+dater+".pdf";
                                         link.click();
                                         swal.close();
-                            
+                                        $('#modalpresentacion').modal('hide');
         // $('#sede_id').val(data[0].id_sede);
 
        // console.log(data);
