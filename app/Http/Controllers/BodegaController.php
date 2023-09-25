@@ -38,7 +38,12 @@ class BodegaController extends Controller
                // $btn = '<button type="button" onClick="editar('.$row['id_sede'].');" class="edit btn btn-warning btn-sm"><div><i class="fa fa-edit"></i></div></button>';
                 return $btn;
              
-             })->rawColumns(['action'])->make(true);
+             })->addColumn('reimpresion',function ($row){
+                $btn1 = '<a type="button" href="reimpresion/'.$row['id_encabezadof'].'" class="delete btn btn-warning btn-sm"><div><i class="fa fa-print"></i></div></a>';
+
+                //$btn1 ='<button type="button" onClick="eliminar('.$row['id_cedecentral'].','.$row['id_status'].');" class="delete btn btn-info btn-sm"><div><i class="fa fa-retweet"></i></div></button>';
+                return $btn1;
+             })->rawColumns(['action','reimpresion'])->make(true);
         }
 
         return view('bodega.index');
@@ -188,7 +193,7 @@ class BodegaController extends Controller
         $pdf->save($path . '/' . $fileName);
 
         $pdf = public_path('facturas/'.$fileName);
-        return response()->download($pdf)->deleteFileAfterSend(true);;
+        return response()->download($pdf)->deleteFileAfterSend(true);
 
         
             // $pdf = PDF::loadView('imprimir');
@@ -267,6 +272,40 @@ class BodegaController extends Controller
 
         //dd($etapas);
         return view('bodega.detalle',['cliente'=>$cliente,'etapas'=>$etapas]);
+    }
+
+    public function reimpresion($id)
+    {
+        $encabezadof =  DB::table('detalle_factura')
+        ->where('detalle_factura.id_encabezadof','=',$id)
+        ->select(DB::raw("sum(cantidad) as cantidad"),'id_encabezadof')
+        ->get();
+        
+        $detallef= DB::table('detalle_factura')
+        ->join('producto','producto.id_producto','=','detalle_factura.id_producto')
+        ->where('detalle_factura.id_encabezadof','=',$id)
+        ->select('producto.nombreproducto','detalle_factura.cantidad','detalle_factura.subtotal')
+        ->get();
+//dd($detallef);
+
+        $orden=$encabezadof[0]->id_encabezadof;
+  
+        $cliente = DB::table('cliente')
+        ->join('encabezado_factura as ec','ec.id_cliente','=','cliente.id_cliente')
+        ->where('ec.id_encabezadof','=',$id)
+        ->get();
+
+        $pago = DB::table('tipo_pago')
+        ->where('tipo_pago.id_tipopago','=','1')
+        ->get();
+
+        $pdf = PDF::loadView('reimpresion',compact('cliente','pago','orden','detallef','encabezadof'));
+        $path = public_path('facturas');
+        $fileName =  time().'.'. 'pdf' ;
+        $pdf->save($path . '/' . $fileName);
+
+        $pdf = public_path('facturas/'.$fileName);
+        return response()->download($pdf)->deleteFileAfterSend(true);;
     }
     /**
      * Update the specified resource in storage.

@@ -47,6 +47,10 @@ function init(){
                 {
                     data:'action',
                     name:'action'
+                },
+                {
+                    data:'reimpresion',
+                    name:'reimpresion'
                 },         
                 
             ],           "language": {

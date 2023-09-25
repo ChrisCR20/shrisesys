@@ -34,6 +34,7 @@
                       <th>Cliente</th>
                       <th>Fecha</th>
                       <th width=""></th>
+                      <th width=""></th>
                   </tr>
                   </thead>
               </table>

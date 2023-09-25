@@ -151,6 +151,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('bodega/obtener/p_unitario/{id}/{cl}', 'App\Http\Controllers\BodegaController@getunitario'); // obtener precio unitario de producto
     Route::get('bodega/card/{dato}', 'App\Http\Controllers\BodegaController@card1');
     Route::get('verentrega/{idegreso}', 'App\Http\Controllers\BodegaController@edit');
+    Route::get('reimpresion/{id}', 'App\Http\Controllers\BodegaController@reimpresion');
     
 
 });
