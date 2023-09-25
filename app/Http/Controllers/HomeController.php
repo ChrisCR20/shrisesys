@@ -58,7 +58,7 @@ class HomeController extends Controller
     {
         $item = DB::table('detalle_factura as df')
         ->join('producto as pr','df.id_producto','=','pr.id_producto')
-        ->select('pr.nombreproducto',DB::raw('count(df.cantidad) as cantidad'))
+        ->select('pr.nombreproducto',DB::raw('sum(df.cantidad) as cantidad'))
         ->groupBy('pr.nombreproducto')
         ->orderBy('cantidad','desc')
         ->limit(7)
