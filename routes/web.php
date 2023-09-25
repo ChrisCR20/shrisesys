@@ -139,7 +139,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('proveedor/edicion', 'App\Http\Controllers\proveedorController@edit');
 
     Route::get('indexreporte', 'App\Http\Controllers\reporteController@index');
-    Route::get('rproductoindex', 'App\Http\Controllers\reporteController@indexproducto')->name('reporte.producto');
+    Route::get('rproductoindex/{idmedida}', 'App\Http\Controllers\reporteController@indexproducto')->name('reporte.producto');
     Route::get('rventasindex/{fechai?}/{fechaf?}', 'App\Http\Controllers\reporteController@indexventas')->name('reporte.ventas');
     Route::get('rbajaexistencia', 'App\Http\Controllers\reporteController@bajaexistencia')->name('reporte.bajaexistencia');
     Route::get('masvendidos', 'App\Http\Controllers\reporteController@masvendido')->name('reporte.masvendidos');

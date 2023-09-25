@@ -19,6 +19,7 @@
     </div><!-- /.container-fluid -->
   </section>
   @include('Reporte/inventario/modalventasrp')
+  @include('Reporte/inventario/modalpresentacion')
     <div class="row">
       <div class="col-12">
         <div class="card card-primary">

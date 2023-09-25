@@ -22,9 +22,15 @@ reporteventas();
 
 $(document).on("click","#btnrepproddown",function(){
   
-    reporteproducto();
+    $('#modalpresentacion').modal('show');
+   // reporteproducto();
         
     });
+    $(document).on("click","#btnexistencia",function(){
+  
+        reporteproducto();
+            
+        });
 
     $(document).on("click","#btnrepbajaexis",function(){
   
@@ -40,6 +46,8 @@ reportemasvendidos();
     
 
 function reporteproducto(){
+    var idmedida = $('#idmedida').val();
+
     Swal.fire({
         title: 'Espere un momento !',
         type: 'info',
@@ -50,7 +58,7 @@ function reporteproducto(){
         },
     });
 
-    $.ajax({url:'rproductoindex',         xhrFields: {
+    $.ajax({url:'rproductoindex/'+idmedida,         xhrFields: {
         responseType: 'blob'
     }}).done(function(e){
         var date = new Date();

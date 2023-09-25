@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Medida;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
@@ -18,8 +18,9 @@ class reporteController extends Controller
     public function index(Request $request)
     {
 
-        
-        return View('Reporte.index');
+        $presentacion=Medida::pluck('nombremedida','id_medida');
+        //dd($presentacion);
+        return View('Reporte.index',compact('presentacion'));
 
     }
     public function bajaexistencia(Request $request){
@@ -79,7 +80,7 @@ class reporteController extends Controller
         $pdf = public_path('facturas/'.$fileName);
         return response()->download($pdf)->deleteFileAfterSend(true);
     }
-    public function indexproducto(Request $request)
+    public function indexproducto($idmedida,Request $request)
     {
             $sucursalemp= DB::table('empleado as e')
             ->join('sucursal_empleado as se','se.id_persona','=','e.id_empleado')
@@ -93,7 +94,8 @@ class reporteController extends Controller
             ->join('medida','medida.id_medida','=','producto.id_medida')
             ->select('producto.codigoproducto','producto.nombreproducto','producto.cantidad','marca.nombremarca','categoría.nombrecategoria','medida.nombremedida')
             ->where('producto.id_sucursal','=',$sucursalemp[0]->id_sucursal)
-            ->orderby('medida.nombremedida','asc')
+            ->where('medida.id_medida','=',$idmedida)
+            ->orderby('producto.cantidad','desc')
             ->get();
             
 
