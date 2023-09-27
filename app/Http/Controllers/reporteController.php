@@ -95,7 +95,7 @@ class reporteController extends Controller
             ->select('producto.codigoproducto','producto.nombreproducto','producto.cantidad','marca.nombremarca','categoría.nombrecategoria','medida.nombremedida')
             ->where('producto.id_sucursal','=',$sucursalemp[0]->id_sucursal)
             ->where('medida.id_medida','=',$idmedida)
-            ->orderby('producto.cantidad','desc')
+            ->orderby('producto.codigoproducto','asc')
             ->get();
             
 
