@@ -8,11 +8,11 @@
     <thead class="thead-light">
         <tr>
             <th width="15%">Codigo</th>
-            <th width="20%">>Nombre</th>
-            <th>Existencia</th>
+            <th width="20%">Nombre</th>
             <th>Marca</th>
             <th>Categoria</th>
             <th width="30%">Medida</th>
+            <th>Existencia</th>
         </tr>
     </thead>
     <tbody>
@@ -20,10 +20,10 @@
             <tr>
                 <td>{{ $prod->codigoproducto }}</td>
                 <td>{{ $prod->nombreproducto }}</td>
-                <td>{{ $prod->cantidad }}</td>
                 <td>{{ $prod->nombremarca }}</td>
                 <td>{{ $prod->nombrecategoria }}</td>
                 <td>{{ $prod->nombremedida }}</td>
+                <td>{{ $prod->cantidad }}</td>
             </tr>
         @endforeach
     </tbody>
