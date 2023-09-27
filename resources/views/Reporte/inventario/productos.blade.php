@@ -11,7 +11,7 @@
             <th width="20%">Nombre</th>
             <th>Marca</th>
             <th>Categoria</th>
-            <th width="30%">Medida</th>
+            <th width="30%">Presentación</th>
             <th>Existencia</th>
         </tr>
     </thead>
