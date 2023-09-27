@@ -7,12 +7,12 @@
 <table class="table table-striped table-bordered table-sm">
     <thead class="thead-light">
         <tr>
-            <th >Codigo de producto</th>
-            <th>Nombre del producto</th>
-            <th>Cantidad en existencia</th>
+            <th width="20%">Codigo de producto</th>
+            <th>Nombre</th>
+            <th>Existencia</th>
             <th>Marca</th>
             <th>Categoria</th>
-            <th>Medida</th>
+            <th width="30%">Medida</th>
         </tr>
     </thead>
     <tbody>
