@@ -7,8 +7,8 @@
 <table class="table table-striped table-bordered table-sm">
     <thead class="thead-light">
         <tr>
-            <th width="20%">Codigo de producto</th>
-            <th>Nombre</th>
+            <th width="15%">Codigo</th>
+            <th width="20%">>Nombre</th>
             <th>Existencia</th>
             <th>Marca</th>
             <th>Categoria</th>
