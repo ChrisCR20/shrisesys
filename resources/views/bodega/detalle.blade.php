@@ -4,7 +4,7 @@
 @section('plugins.Sweetalert2', true)
 @section('content')
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
-@include('compra/modaledit')
+@include('bodega/modaledititem')
 <div class="container">
 
   <div class="justify-content-center">
@@ -46,7 +46,7 @@
                 <div class="col-lg-8">
                     <label for="exampleInputPassword1">Cliente</label>
                     <input type="text" class="form-control" id="id_clientes" name="id_clientes" value="{{$etapas['0']['nombrecliente']}}"  readonly >
-  
+                    
                   </div>
               </div>
               <div class="form-group row post">
@@ -82,7 +82,7 @@
         $.ajaxSetup({
     headers:{'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
 });
-
+$('.select2').select2();
 
 
 
@@ -154,6 +154,27 @@
      });
 
     });
+
+    function editarb(id_detallef){
+      $.ajax({url:'obteneritem/'+id_detallef}).done(function(data){
+      console.log(data);
+      $('#producto').val(data[0].nombreproducto);
+      $('#cantidad').val(data[0].cantidad);
+      $('#subtotal').val(data[0].subtotal);
+      $('#iditem').val(data[0].id_producto);
+      $('#iddetallec').val(data[0].id_detallefacturac);
+      $('#idencabe').val(data[0].id_encabezadofacturaC);
+
+     // console.log(data);
+     if ($('#id_producto').find("option[value='" + $('#iditem').val() + "']").length)
+            {$('#id_producto').select2().val($('#iditem').val()).trigger('change'); }
+    });
+
+
+      $('#modaleditaritem').modal('show');
+     }
+
+
 
         
   </script>

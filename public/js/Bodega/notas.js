@@ -49,6 +49,10 @@ function init(){
                     name:'action'
                 },
                 {
+                    data:'editar',
+                    name:'editar'
+                },
+                {
                     data:'reimpresion',
                     name:'reimpresion'
                 },         

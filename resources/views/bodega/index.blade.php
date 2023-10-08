@@ -33,8 +33,9 @@
                       <th>No. Pedido</th>
                       <th>Cliente</th>
                       <th>Fecha</th>
-                      <th width=""></th>
-                      <th width=""></th>
+                      <th width="5%"></th>
+                      <th width="5%"></th>
+                      <th width="5%"></th>
                   </tr>
                   </thead>
               </table>

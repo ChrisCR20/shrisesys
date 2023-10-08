@@ -152,6 +152,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('bodega/card/{dato}', 'App\Http\Controllers\BodegaController@card1');
     Route::get('verentrega/{idegreso}', 'App\Http\Controllers\BodegaController@edit');
     Route::get('reimpresion/{id}', 'App\Http\Controllers\BodegaController@reimpresion');
+    Route::get('indexedit/{id}', 'App\Http\Controllers\BodegaController@indexedit');
+    Route::get('indexedit/obteneritem/{id}', 'App\Http\Controllers\BodegaController@obteneritem');
+    Route::post('indexedit/edicion', 'App\Http\Controllers\BodegaController@actualizaritem');
+    Route::post('indexedit/edicioncabezav', 'App\Http\Controllers\BodegaController@actualizarencabe');
+    Route::post('indexedit/deletepedido', 'App\Http\Controllers\BodegaController@eliminarpedido');
     
 
 });

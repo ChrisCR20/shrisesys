@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use DB;;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\detalle_factura;
 use App\Models\encabezado_factura;
+use App\Models\Producto;
 use PDF;
 use PhpParser\Node\Expr\FuncCall;
 
@@ -20,6 +22,7 @@ class BodegaController extends Controller
         {      
             $data = DB::table('encabezado_factura')->select('encabezado_factura.id_encabezadof as id_encabezadof','cliente.nombrecliente as nombrecliente','encabezado_factura.fecha as fecha')
             ->join('cliente','cliente.id_cliente','=','encabezado_factura.id_cliente')
+            ->where('encabezado_factura.status','=','1')
             ->get();
             //   $datos = json_decode($data,true);
             //dd($data);
@@ -33,17 +36,23 @@ class BodegaController extends Controller
            //dd($etapas[0]['idsedecentral']);
 
              return datatables()->of($etapas)->addColumn('action',function ($row){
-                 $btn = '<a class="btn  btn-md" style="color:#123D6C" title="Editar"  href="verentrega/'.$row['id_encabezadof'].'" ><div><i class="fa fa-eye"></i></div></a>';
+                 $btn = '<a class="btn  btn-md" style="color:#123D6C" title="Ver"  href="verentrega/'.$row['id_encabezadof'].'" ><div><i class="fa fa-eye"></i></div></a>';
 
                // $btn = '<button type="button" onClick="editar('.$row['id_sede'].');" class="edit btn btn-warning btn-sm"><div><i class="fa fa-edit"></i></div></button>';
                 return $btn;
              
+             })->addColumn('editar',function ($row){
+                Auth::user()->hasPermissionTo('pedidos.edit')
+                ? $btn2 = '<a class="btn btn-md" style="color:#FF5733 " title="Editar" href="indexedit/'.$row['id_encabezadof'].'" class="delete btn btn-warning btn-sm"><div><i class="fa fa-edit"></i></div></a>'
+                : $btn2= ' ';
+                //$btn1 ='<button type="button" onClick="eliminar('.$row['id_cedecentral'].','.$row['id_status'].');" class="delete btn btn-info btn-sm"><div><i class="fa fa-retweet"></i></div></button>';
+                return $btn2;
              })->addColumn('reimpresion',function ($row){
-                $btn1 = '<a type="button" href="reimpresion/'.$row['id_encabezadof'].'" class="delete btn btn-warning btn-sm"><div><i class="fa fa-print"></i></div></a>';
+                $btn1 = '<a type="button" title="Re-imprimir" href="reimpresion/'.$row['id_encabezadof'].'" class="delete btn btn-warning btn-sm"><div><i class="fa fa-print"></i></div></a>';
 
                 //$btn1 ='<button type="button" onClick="eliminar('.$row['id_cedecentral'].','.$row['id_status'].');" class="delete btn btn-info btn-sm"><div><i class="fa fa-retweet"></i></div></button>';
                 return $btn1;
-             })->rawColumns(['action','reimpresion'])->make(true);
+             })->rawColumns(['action','editar','reimpresion'])->make(true);
         }
 
         return view('bodega.index');
@@ -257,10 +266,7 @@ class BodegaController extends Controller
             }}
 
 
-             return datatables()->of($etapas1)->addColumn('action',function ($row){
-   
-             
-             })->rawColumns(['action'])->make(true);
+             return datatables()->of($etapas1)->make(true);
         }
 
         if(count($data) ==0){
@@ -271,7 +277,8 @@ class BodegaController extends Controller
         }}
 
         //dd($etapas);
-        return view('bodega.detalle',['cliente'=>$cliente,'etapas'=>$etapas]);
+        $producto = Producto::pluck('nombreproducto', 'id_producto')->all();
+        return view('bodega.detalle',['cliente'=>$cliente,'etapas'=>$etapas,'producto'=>$producto]);
     }
 
     public function reimpresion($id)
@@ -306,6 +313,195 @@ class BodegaController extends Controller
 
         $pdf = public_path('facturas/'.$fileName);
         return response()->download($pdf)->deleteFileAfterSend(true);;
+    }
+
+    public function obteneritem($id)
+    {
+        $item = DB::table('detalle_factura as df')
+        ->join('producto as pr', 'df.id_producto', '=', 'pr.id_producto')
+        ->select('pr.nombreproducto', 'df.cantidad', 'df.subtotal', 'df.id_producto', 'df.id_detallef', 'df.id_encabezadof')
+        ->where('id_detallef', '=', $id)
+        ->get();
+
+        return response()->json($item);
+    }
+
+    public function indexedit(Request $request,$id){
+
+
+        $data = DB::table('encabezado_factura as ef')
+        ->join('cliente','cliente.id_cliente','=','ef.id_cliente')
+        ->select('ef.id_encabezadof', 'cliente.nombrecliente','ef.fecha','ef.id_cliente')
+        ->where('ef.id_encabezadof', '=', $id)
+        ->get();
+
+        
+
+
+        if($request->ajax())
+        {
+            
+
+            $data1 = DB::table('encabezado_factura as ef')
+            ->join('detalle_factura as df','ef.id_encabezadof','=','df.id_encabezadof')
+            ->join('producto as pr','df.id_producto','=','pr.id_producto')
+            ->select('df.id_detallef','df.cantidad','pr.nombreproducto')
+            ->where('ef.id_encabezadof','=',$id)
+            ->get();
+            
+         //   $datos = json_decode($data,true);
+            //dd($data);
+            //dd(Arr::get($data,'idsedecentral'));
+            if(count($data1) ==0){
+                $etapas1=[];
+            }else{
+            foreach($data1 as $data1 => $valor){
+                $etapas1[] = (array)$valor;
+            }}
+
+
+             return datatables()->of($etapas1)->addColumn('action',function ($row){
+                 $btn = '<a class="btn  btn-md" style="color:#C8A60A" title="Editar" onClick="editarb('.$row['id_detallef'].');" class="edit btn btn-warning btn-sm"><div><i class="fa fa-edit"></i></div></a>';
+
+               // $btn = '<button type="button" onClick="editar('.$row['id_sede'].');" class="edit btn btn-warning btn-sm"><div><i class="fa fa-edit"></i></div></button>';
+                return $btn;})->make(true);
+        }
+
+        if(count($data) ==0){
+            $etapas=[];
+        }else{
+        foreach($data as $data => $valor){
+            $etapas[] = (array)$valor;
+        }}
+
+        //dd($etapas);
+        $producto = Producto::pluck('nombreproducto', 'id_producto')->all();
+        $cliente = Cliente::pluck('nombrecliente', 'id_cliente')->all();
+        // $cliente = DB::table('cliente')->select('id_cliente', 'nombrecliente')
+        // ->orderby('id_cliente', 'desc')
+        // ->get();
+        return view('bodega.indexedit',['cliente'=>$cliente,'etapas'=>$etapas,'producto'=>$producto]);
+    }
+
+    public function actualizaritem(Request $request)
+    {
+        try {
+
+
+            $punitario = DB::table('producto as p')
+            ->join('medida as m','m.id_medida','=','p.id_medida')
+            ->join('presentacion_cliente as pc','pc.id_presentacion','=','m.id_medida')
+            ->select('pc.precio', 'p.id_producto','p.cantidad')
+            ->where('id_producto', '=', $request->iditem)
+            ->where('id_cliente','=',$request->idcl)
+            ->first();
+
+            $stockanterior = DB::table('detalle_factura as df')
+            ->where('id_detallef','=',$request->iddetallec)
+            ->get();
+
+            if($request->iditem == $stockanterior[0]->id_producto ){
+               
+                if($request->cantidad > $stockanterior[0]->cantidad)
+                {
+                    
+                    $cantidadreal=($request->cantidad) - ($stockanterior[0]->cantidad);
+                    
+                    $productoupdate = Producto::findOrFail($request->iditem);
+                    $productoupdate->cantidad = ($productoupdate->cantidad) - $cantidadreal;
+                    $productoupdate->save();
+                  //  dd($cantidadreal);
+               
+                }
+                else{
+                    $cantidadreal=($stockanterior[0]->cantidad)-($request->cantidad);
+    
+                    $productoupdate = Producto::findOrFail($request->iditem);
+                    $productoupdate->cantidad = ($productoupdate->cantidad) + $cantidadreal;
+                    $productoupdate->save();
+                    //dd($cantidadreal);
+                }
+    
+            //dd($stockanterior);
+                // Validate the value...
+    
+                $subtot=$request->cantidad*$punitario->precio;
+       
+                $detallefacturaC = detalle_factura::findOrFail($request->iddetallec);
+                $detallefacturaC->id_producto = $request->iditem;
+                $detallefacturaC->subtotal =$subtot;
+                $detallefacturaC->cantidad =$request->cantidad;
+                $detallefacturaC->save();
+    
+    
+                $encabezado = DB::table('encabezado_factura as efc')
+                ->where('id_encabezadof','=',$request->idencabe)
+                ->get();
+                
+                return response($encabezado);
+
+            }else{
+              
+                $productoretorno = Producto::findOrFail($stockanterior[0]->id_producto);
+                $productoretorno->cantidad = ($productoretorno->cantidad) + $stockanterior[0]->cantidad;
+                $productoretorno->save();
+
+                $productoupdate = Producto::findOrFail($request->iditem);
+                $productoupdate->cantidad = ($productoupdate->cantidad) - $request->cantidad;
+                $productoupdate->save();
+
+                $subtot=$request->cantidad*$punitario->precio;
+       
+                $detallefacturaC = detalle_factura::findOrFail($request->iddetallec);
+                $detallefacturaC->id_producto = $request->iditem;
+                $detallefacturaC->subtotal =$subtot;
+                $detallefacturaC->cantidad =$request->cantidad;
+                $detallefacturaC->save();
+
+                $encabezado = DB::table('encabezado_factura as efc')
+                ->where('id_encabezadof','=',$request->idencabe)
+                ->get();
+
+                return response($encabezado);
+            }
+      
+
+            
+        } catch (Throwable $e) {
+            report($e);
+     
+            return false;
+        }
+    }
+
+    public function actualizarencabe(Request $request)
+    {
+        $encabezadofacturaC = encabezado_factura::findOrFail($request->encabezado);
+        $encabezadofacturaC->id_cliente = $request->cliente;
+        $encabezadofacturaC->fecha =$request->fecha;
+        $encabezadofacturaC->save();
+    }
+
+    public function eliminarpedido(Request $request)
+    {
+    
+        $detallef = DB::table('detalle_factura as df')
+        ->where('id_encabezadof','=',$request->encabezado)
+        ->get();
+
+        $encabezadofacturaC = encabezado_factura::findOrFail($request->encabezado);
+        $encabezadofacturaC->status ='0';
+        $encabezadofacturaC->save();
+
+        foreach($detallef as $detallef => $valor){
+
+            $productoretorno = Producto::findOrFail($valor->id_producto);
+            $productoretorno->cantidad = ($productoretorno->cantidad) + $valor->cantidad;
+            $productoretorno->save();
+
+        }
+        //dd($detallef);
+
     }
     /**
      * Update the specified resource in storage.

@@ -130,6 +130,7 @@ class reporteController extends Controller
             ->select('encabezado_factura.id_encabezadof','cliente.nombrecliente','encabezado_factura.montototal','producto.nombreproducto',DB::raw('presentacion_costo.precio_costo * detalle_factura.cantidad as costo'),
             'detalle_factura.cantidad','detalle_factura.subtotal',DB::raw('detalle_factura.subtotal-(presentacion_costo.precio_costo *detalle_factura.cantidad) as ganancia'),)
             ->where('caja.id_sucursal','=',$sucursalemp[0]->id_sucursal)
+            ->where('encabezado_factura.status','=','1')
             ->whereBetween('encabezado_factura.fecha',[$fechai,$fechaf])
             ->orderby('encabezado_factura.id_encabezadof','asc')
             ->get();
@@ -144,6 +145,7 @@ class reporteController extends Controller
             ->select(DB::raw('sum(presentacion_costo.precio_costo * detalle_factura.cantidad) as tcosto'),
             DB::raw('sum(detalle_factura.cantidad) as tcantidad'),DB::raw('sum(detalle_factura.subtotal) as tsubtotal'),DB::raw('sum(detalle_factura.subtotal-(presentacion_costo.precio_costo *detalle_factura.cantidad)) as tganancia'),)
             ->where('caja.id_sucursal','=',$sucursalemp[0]->id_sucursal)
+            ->where('encabezado_factura.status','=','1')
             ->whereBetween('encabezado_factura.fecha',[$fechai,$fechaf])
             ->orderby('encabezado_factura.id_encabezadof','asc')
             ->get();

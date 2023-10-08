@@ -19,7 +19,8 @@ class encabezado_factura extends Model
         'id_sucursal',
         'montototal',
         'id_caja',
-        'fecha'
+        'fecha',
+        'status'
 
     ];
 }
