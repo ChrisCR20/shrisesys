@@ -184,7 +184,7 @@ class reporteController extends Controller
         ->where('medida.id_medida','=',$idmedida)
         ->where('producto.id_sucursal','=',$sucursalemp[0]->id_sucursal)
         ->where('producto.cantidad','>=',1)
-        ->orderby('producto.cantidad','asc')
+        ->orderby('producto.codigoproducto','asc')
         ->get();
         
 
