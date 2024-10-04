@@ -20,6 +20,12 @@ reporteventas();
     
 });
 
+$(document).on("click","#btnprconexis",function(){
+  
+    reporteconexis();
+        
+    });
+
 $(document).on("click","#btnrepproddown",function(){
   
     $('#modalpresentacion').modal('show');
@@ -165,6 +171,35 @@ function reporteventas()
        // console.log(data);
     });
 
+}
+
+function reporteconexis(){
+    Swal.fire({
+        title: 'Espere un momento !',
+        type: 'info',
+        html: 'El reporte se esta generando',// add html attribute if you want or remove
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        },
+    });
+
+    $.ajax({url:'rconexis',         xhrFields: {
+        responseType: 'blob'
+    }}).done(function(e){
+        var date = new Date();
+        var dater=date.getFullYear()+'s'+date.getMinutes()+date.getSeconds();
+        var blob = new Blob([e]);
+                                        var link = document.createElement('a');
+                                        link.href = window.URL.createObjectURL(blob);
+                                        link.download = "ProductosConExistencia-"+dater+".pdf";
+                                        link.click();
+                                        swal.close();
+                            
+        // $('#sede_id').val(data[0].id_sede);
+
+       // console.log(data);
+    });
 }
 
 init();

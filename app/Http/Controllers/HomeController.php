@@ -82,6 +82,7 @@ class HomeController extends Controller
         ->join('detalle_factura as df','ef.id_encabezadof','=','df.id_encabezadof')
         ->join('producto as pr','df.id_producto','=','pr.id_producto')
         ->select(DB::raw('sum(df.subtotal) as venta'),DB::raw('month(ef.fecha) as mes'))
+        ->where(DB::raw('year(ef.fecha)'),'=',now()->toDate('Y'))
         ->groupBy('mes')
         ->orderBy('mes','asc')
         ->get();

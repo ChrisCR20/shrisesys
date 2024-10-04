@@ -40,7 +40,7 @@ class clientesController extends Controller
                 return $btn;
              
              }) ->addColumn('asignaprecio',function ($row){
-                $btn1 = '<a type="button" href="indexasignaprecio/'.$row['id_cliente'].'" class="delete btn btn-info btn-sm"><div><i class="fa fa-retweet"></i></div></a>';
+                $btn1 = '<a type="button" title="Asignar precio" href="indexasignaprecio/'.$row['id_cliente'].'" class=" btn btn-primary btn-sm"><div><i class="fa fa-usd"></i></div></a>';
 
                 //$btn1 ='<button type="button" onClick="eliminar('.$row['id_cedecentral'].','.$row['id_status'].');" class="delete btn btn-info btn-sm"><div><i class="fa fa-retweet"></i></div></button>';
                 return $btn1;
