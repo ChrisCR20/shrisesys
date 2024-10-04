@@ -20,6 +20,7 @@
   </section>
   @include('Reporte/inventario/modalventasrp')
   @include('Reporte/inventario/modalpresentacion')
+  @include('Reporte/inventario/modalpresentacionconexis')
     <div class="row">
       <div class="col-12">
         <div class="card card-primary">

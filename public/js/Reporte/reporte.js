@@ -22,6 +22,13 @@ reporteventas();
 
 $(document).on("click","#btnprconexis",function(){
   
+    $('#modalpresentacionv2').modal('show');
+        
+    });
+
+$(document).on("click","#btnconexistencia",function(){
+    
+  
     reporteconexis();
         
     });
@@ -174,6 +181,8 @@ function reporteventas()
 }
 
 function reporteconexis(){
+    var idmedida = $('#idmedida2').val();
+
     Swal.fire({
         title: 'Espere un momento !',
         type: 'info',
@@ -184,7 +193,7 @@ function reporteconexis(){
         },
     });
 
-    $.ajax({url:'rconexis',         xhrFields: {
+    $.ajax({url:'rconexis/'+idmedida,         xhrFields: {
         responseType: 'blob'
     }}).done(function(e){
         var date = new Date();
@@ -195,7 +204,7 @@ function reporteconexis(){
                                         link.download = "ProductosConExistencia-"+dater+".pdf";
                                         link.click();
                                         swal.close();
-                            
+                                        $('#modalpresentacionv2').modal('hide');
         // $('#sede_id').val(data[0].id_sede);
 
        // console.log(data);

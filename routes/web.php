@@ -143,7 +143,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('rventasindex/{fechai?}/{fechaf?}', 'App\Http\Controllers\reporteController@indexventas')->name('reporte.ventas');
     Route::get('rbajaexistencia', 'App\Http\Controllers\reporteController@bajaexistencia')->name('reporte.bajaexistencia');
     Route::get('masvendidos', 'App\Http\Controllers\reporteController@masvendido')->name('reporte.masvendidos');
-    Route::get('rconexis', 'App\Http\Controllers\reporteController@conexis')->name('reporte.conexis');
+    Route::get('rconexis/{idmedida}', 'App\Http\Controllers\reporteController@conexis')->name('reporte.conexis');
 
     //rutas bodega
     Route::get('indexbodega', 'App\Http\Controllers\BodegaController@index')->name('indexbodega');

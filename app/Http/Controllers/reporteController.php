@@ -168,7 +168,8 @@ class reporteController extends Controller
 
     }
 
-    public function conexis(Request $request){
+    public function conexis($idmedida,Request $request){
+       // dd($idmedida);
         $sucursalemp= DB::table('empleado as e')
         ->join('sucursal_empleado as se','se.id_persona','=','e.id_empleado')
         ->select('se.id_sucursal')
@@ -180,6 +181,7 @@ class reporteController extends Controller
         ->join('categoría','categoría.id_categoria','=','producto.id_categoria')
         ->join('medida','medida.id_medida','=','producto.id_medida')
         ->select('producto.codigoproducto','producto.nombreproducto','producto.cantidad','marca.nombremarca','categoría.nombrecategoria','medida.nombremedida')
+        ->where('medida.id_medida','=',$idmedida)
         ->where('producto.id_sucursal','=',$sucursalemp[0]->id_sucursal)
         ->where('producto.cantidad','>=',1)
         ->orderby('producto.cantidad','asc')
