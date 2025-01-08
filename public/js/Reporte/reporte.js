@@ -52,9 +52,20 @@ $(document).on("click","#btnrepproddown",function(){
         });
 
 $(document).on("click","#btnrepmasvendidos",function(){
-  
-reportemasvendidos();
+    $('#modalmasvendido').modal('show');
+//reportemasvendidos();
                 
+});
+$(document).on("click","#btnmasvendido",function(){
+  
+    reportemasvendidos();
+        
+    });
+
+$(document).on("click","#btnventaxpres",function(){
+
+    reportexispresent();
+        
 });
     
 
@@ -119,6 +130,9 @@ function reportebajaexistencia(){
 }
 
 function reportemasvendidos(){
+    var idmedida = $('#idmedidatop').val();
+    var top = $('#topmasv').find('option:selected').text();
+
     Swal.fire({
         title: 'Espere un momento !',
         type: 'info',
@@ -129,7 +143,7 @@ function reportemasvendidos(){
         },
     });
 
-    $.ajax({url:'masvendidos',         xhrFields: {
+    $.ajax({url:'masvendidos/'+idmedida+'/'+top,         xhrFields: {
         responseType: 'blob'
     }}).done(function(e){
         var date = new Date();
@@ -137,7 +151,7 @@ function reportemasvendidos(){
         var blob = new Blob([e]);
                                         var link = document.createElement('a');
                                         link.href = window.URL.createObjectURL(blob);
-                                        link.download = "15masVendidos-"+dater+".pdf";
+                                        link.download = top+"masVendidos-"+dater+".pdf";
                                         link.click();
                                         swal.close();
                             
@@ -205,6 +219,36 @@ function reporteconexis(){
                                         link.click();
                                         swal.close();
                                         $('#modalpresentacionv2').modal('hide');
+        // $('#sede_id').val(data[0].id_sede);
+
+       // console.log(data);
+    });
+}
+
+function reportexispresent(){
+  
+    Swal.fire({
+        title: 'Espere un momento !',
+        type: 'info',
+        html: 'El reporte se esta generando',// add html attribute if you want or remove
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        },
+    });
+
+    $.ajax({url:'repexistenciapresentacion',         xhrFields: {
+        responseType: 'blob'
+    }}).done(function(e){
+        var date = new Date();
+        var dater=date.getFullYear()+'s'+date.getMinutes()+date.getSeconds();
+        var blob = new Blob([e]);
+                                        var link = document.createElement('a');
+                                        link.href = window.URL.createObjectURL(blob);
+                                        link.download ="existenciaxPres"+dater+".pdf";
+                                        link.click();
+                                        swal.close();
+                            
         // $('#sede_id').val(data[0].id_sede);
 
        // console.log(data);

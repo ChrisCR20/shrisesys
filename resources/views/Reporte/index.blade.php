@@ -21,6 +21,7 @@
   @include('Reporte/inventario/modalventasrp')
   @include('Reporte/inventario/modalpresentacion')
   @include('Reporte/inventario/modalpresentacionconexis')
+  @include('Reporte/inventario/modalmasvendido')
     <div class="row">
       <div class="col-12">
         <div class="card card-primary">
@@ -128,12 +129,28 @@
                       <div class="inner">
                         <h3></br></h3>
         
-                        <p>Los 15 mas vendidos</p>
+                        <p>Los productos más vendidos</p>
                       </div>
                       <div class="icon">
                         <i class="fa fa-credit-card"></i>
                       </div>
                       <a id="btnrepmasvendidos"  class="small-box-footer">
+                        Generar reporte <i class="fas fa-arrow-circle-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-6">
+                    <!-- small card -->
+                    <div class="small-box bg-warning">
+                      <div class="inner">
+                        <h3></br></h3>
+        
+                        <p>Existencia por presentación</p>
+                      </div>
+                      <div class="icon">
+                        <i class="fa fa-credit-card"></i>
+                      </div>
+                      <a id="btnventaxpres"  class="small-box-footer">
                         Generar reporte <i class="fas fa-arrow-circle-right"></i>
                       </a>
                     </div>

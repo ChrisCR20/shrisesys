@@ -1,24 +1,21 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <div class="center">
-<h3 class="text-center">Presentación : {{$presentacion[0]->nombremedida}}</h3>
-<h4 class="text-center"> Reporte de los {{$top}} productos más vendidos </h4>
-<p class="text-center">{{\Carbon\Carbon::parse(now()->toDateTime())->setTimezone('America/Guatemala')->format('d-m-Y H:i:s') }}</p>
+<h4 class="text-center"> Reporte de existencias por presentación </h4>
+<p class="text-center">{{\Carbon\Carbon::parse(now()->toDateTime())->setTimezone('America/Guatemala')->format('d-m-Y H:i:s')}}</p>
 </div>
 <div class="">
 <table class="table table-striped table-bordered table-sm">
     <thead class="thead-light">
         <tr>
-            <th >Codigo de producto</th>
-            <th>Nombre del producto</th>
-            <th>Cantidad vendida</th>
+            <th >Nombre de presentación</th>
+            <th>cantidad en existencia</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($ventas as $key => $prod)
+        @foreach ($productos as $key => $prod)
             <tr>
-                <td>{{ $prod->codigoproducto }}</td>
-                <td>{{ $prod->nombreproducto }}</td>
-                <td>{{ $prod->cantidad }}</td>
+                <td>{{ $prod->nombremedida }}</td>
+                <td>{{ $prod->tcantidad }}</td>
             </tr>
         @endforeach
     </tbody>

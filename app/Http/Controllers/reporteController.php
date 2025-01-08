@@ -51,8 +51,8 @@ class reporteController extends Controller
             $pdf = public_path('facturas/'.$fileName);
             return response()->download($pdf)->deleteFileAfterSend(true);
     }
-    public function masvendido(Request $request){
-
+    public function masvendido($idmedida,$top,Request $request){
+       // dd($idmedida,$top);
         $sucursalemp= DB::table('empleado as e')
         ->join('sucursal_empleado as se','se.id_persona','=','e.id_empleado')
         ->select('se.id_sucursal')
@@ -66,13 +66,16 @@ class reporteController extends Controller
         ->join('caja','caja.id_caja','=','encabezado_factura.id_caja')
         ->select('producto.codigoproducto','producto.nombreproducto',DB::raw('sum(detalle_factura.cantidad) as cantidad'))
         ->where('caja.id_sucursal','=',$sucursalemp[0]->id_sucursal)
+        ->where('producto.id_medida','=',$idmedida)
         ->groupBy('producto.nombreproducto')
         ->orderBy('cantidad','desc')
-        ->limit(15)
+        ->limit($top)
         ->get();
 
+        $presentacion = DB::table('medida')->select('medida.nombremedida')->where('medida.id_medida','=',$idmedida)->get();
+        //dd($presentacion);
         
-        $pdf = PDF::loadView('Reporte.inventario.masvendido',compact('ventas'));
+        $pdf = PDF::loadView('Reporte.inventario.masvendido',compact('ventas','top','presentacion'));
         $path = public_path('facturas');
         $fileName =  time().'.'. 'pdf' ;
         $pdf->save($path . '/' . $fileName);
@@ -198,6 +201,36 @@ class reporteController extends Controller
             $pdf = public_path('facturas/'.$fileName);
             return response()->download($pdf)->deleteFileAfterSend(true);
     }
+
+    public function repexistenciaxpres(Request $request){
+        // dd($idmedida,$top);
+         $sucursalemp= DB::table('empleado as e')
+         ->join('sucursal_empleado as se','se.id_persona','=','e.id_empleado')
+         ->select('se.id_sucursal')
+         ->where('e.id_empleado','=',auth()->user()->id_empleado)
+         ->get();
+ 
+ 
+         $productos = DB::table('producto')
+         ->join('marca','marca.id_marca','=','producto.id_marca')
+         ->join('categoría','categoría.id_categoria','=','producto.id_categoria')
+         ->join('medida','medida.id_medida','=','producto.id_medida')
+         ->select('medida.nombremedida',DB::raw('sum(producto.cantidad) as tcantidad'))
+         ->where('producto.id_sucursal','=',$sucursalemp[0]->id_sucursal)
+         ->groupBy('medida.id_medida')
+         ->orderby('tcantidad','asc')
+         ->get();
+
+         //dd($productos);
+ 
+         $pdf = PDF::loadView('Reporte.inventario.existenciaxpres',compact('productos'));
+         $path = public_path('facturas');
+         $fileName =  time().'.'. 'pdf' ;
+         $pdf->save($path . '/' . $fileName);
+ 
+         $pdf = public_path('facturas/'.$fileName);
+         return response()->download($pdf)->deleteFileAfterSend(true);
+     }
 
 
 
