@@ -51,8 +51,8 @@ class reporteController extends Controller
             $pdf = public_path('facturas/'.$fileName);
             return response()->download($pdf)->deleteFileAfterSend(true);
     }
-    public function masvendido($idmedida,$top,Request $request){
-       // dd($idmedida,$top);
+    public function masvendido($idmedida,$top,$fechai,$fechaf,Request $request){
+        //dd($fechai,$fechaf);
         $sucursalemp= DB::table('empleado as e')
         ->join('sucursal_empleado as se','se.id_persona','=','e.id_empleado')
         ->select('se.id_sucursal')
@@ -67,6 +67,7 @@ class reporteController extends Controller
         ->select('producto.codigoproducto','producto.nombreproducto',DB::raw('sum(detalle_factura.cantidad) as cantidad'))
         ->where('caja.id_sucursal','=',$sucursalemp[0]->id_sucursal)
         ->where('producto.id_medida','=',$idmedida)
+        ->whereBetween('encabezado_factura.fecha',[$fechai,$fechaf])
         ->groupBy('producto.nombreproducto')
         ->orderBy('cantidad','desc')
         ->limit($top)
@@ -75,7 +76,7 @@ class reporteController extends Controller
         $presentacion = DB::table('medida')->select('medida.nombremedida')->where('medida.id_medida','=',$idmedida)->get();
         //dd($presentacion);
         
-        $pdf = PDF::loadView('Reporte.inventario.masvendido',compact('ventas','top','presentacion'));
+        $pdf = PDF::loadView('Reporte.inventario.masvendido',compact('ventas','top','presentacion','fechai','fechaf'));
         $path = public_path('facturas');
         $fileName =  time().'.'. 'pdf' ;
         $pdf->save($path . '/' . $fileName);

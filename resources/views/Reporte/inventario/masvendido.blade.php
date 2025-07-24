@@ -1,8 +1,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <div class="center">
 <h3 class="text-center">Presentación : {{$presentacion[0]->nombremedida}}</h3>
-<h4 class="text-center"> Reporte de los {{$top}} productos más vendidos </h4>
-<p class="text-center">{{\Carbon\Carbon::parse(now()->toDateTime())->setTimezone('America/Guatemala')->format('d-m-Y H:i:s') }}</p>
+<h4 class="text-center"> Reporte de los {{$top}} productos más vendidos  </h4>
+<h5 class="text-center">del {{\Carbon\Carbon::parse($fechai)->format('d-m-Y')}} al {{\Carbon\Carbon::parse($fechaf)->format('d-m-Y')}}</h5>
+<h6 class="text-right">  Reporte generado el {{\Carbon\Carbon::parse(now()->toDateTime())->setTimezone('America/Guatemala')->format('d-m-Y H:i:s') }}</h6>
 </div>
 <div class="">
 <table class="table table-striped table-bordered table-sm">

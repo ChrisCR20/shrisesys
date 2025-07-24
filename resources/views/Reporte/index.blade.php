@@ -221,9 +221,77 @@ $('input[name="f_iniciorep"]').daterangepicker({
 
   });
 
+  $('input[name="f_iniciorepmas"]').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: 1901,
+    maxYear: parseInt(moment().format('YYYY') + 1,10) ,
+    locale: {
+        format: 'YYYY-MM-DD',
+        daysOfWeek: [
+        "Dom",
+        "Lun",
+        "Mar",
+        "Mier",
+        "Jue",
+        "Vier",
+        "Sáb"
+    ],
+    monthNames: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"
+    ]
+    }
+  }, function(start, end, label) {
+
+  });
+
 
 
 $('input[name="f_finalrep"]').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: 1901,
+    maxYear: parseInt(moment().format('YYYY') + 1,10),
+    locale: {
+        format: 'YYYY-MM-DD',
+        daysOfWeek: [
+        "Dom",
+        "Lun",
+        "Mar",
+        "Mier",
+        "Jue",
+        "Vier",
+        "Sáb"
+    ],
+    monthNames: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"]
+  }}, function(start, end, label) {
+
+  });
+
+  $('input[name="f_finalrepmas"]').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true,
     minYear: 1901,

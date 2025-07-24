@@ -132,6 +132,8 @@ function reportebajaexistencia(){
 function reportemasvendidos(){
     var idmedida = $('#idmedidatop').val();
     var top = $('#topmasv').find('option:selected').text();
+    var fechaimas = $('#f_iniciorepmas').val();
+    var fechafmas = $('#f_finalrepmas').val();
 
     Swal.fire({
         title: 'Espere un momento !',
@@ -143,7 +145,7 @@ function reportemasvendidos(){
         },
     });
 
-    $.ajax({url:'masvendidos/'+idmedida+'/'+top,         xhrFields: {
+    $.ajax({url:'masvendidos/'+idmedida+'/'+top+'/'+fechaimas+'/'+fechafmas,         xhrFields: {
         responseType: 'blob'
     }}).done(function(e){
         var date = new Date();

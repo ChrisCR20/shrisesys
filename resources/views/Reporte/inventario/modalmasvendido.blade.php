@@ -24,6 +24,26 @@
                   <option selected="selected" value=2>30</option>
                   <option selected="selected" value=3>15</option>
               </select>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+            <label>Fecha inicial:</label>
+              <div class="input-group date "  data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" id="f_iniciorepmas" name="f_iniciorepmas" data-target="#reservationdate"/>
+                  <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>
+              </div>
+              <div class="col-md-6">
+              <label>Fecha final:</label>
+              <div class="input-group date"  data-target-input="nearest">
+                  <input type="text" class="form-control datetimepicker-input" id="f_finalrepmas" name="f_finalrepmas" data-target="#reservationdate"/>
+                  <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>
+              </div>
           </div>  
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
