@@ -19,11 +19,12 @@
           </div>
           <div class="form-group">
             <label>Top</label>
-            <select class="form-control select2" id="topmasv" name="topmasv" style="width: 100%;">
+            <input type="number" class="form-control" id="topmasv" name="topmasv" />
+            {{-- <select class="form-control select2" id="topmasv" name="topmasv" style="width: 100%;">
                   <option selected="selected" value=1>50</option>
                   <option selected="selected" value=2>30</option>
                   <option selected="selected" value=3>15</option>
-              </select>
+              </select> --}}
           </div>
           <div class="form-group row">
             <div class="col-md-6">

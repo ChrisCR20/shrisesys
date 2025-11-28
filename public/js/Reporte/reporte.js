@@ -131,7 +131,8 @@ function reportebajaexistencia(){
 
 function reportemasvendidos(){
     var idmedida = $('#idmedidatop').val();
-    var top = $('#topmasv').find('option:selected').text();
+    // var top = $('#topmasv').find('option:selected').text();
+    var top = $('#topmasv').val();
     var fechaimas = $('#f_iniciorepmas').val();
     var fechafmas = $('#f_finalrepmas').val();
 

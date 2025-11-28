@@ -226,6 +226,8 @@ $('input[name="f_iniciorep"]').daterangepicker({
     showDropdowns: true,
     minYear: 1901,
     maxYear: parseInt(moment().format('YYYY') + 1,10) ,
+     applyLabel: "Aplicar",   
+    cancelLabel: "Cancelar", 
     locale: {
         format: 'YYYY-MM-DD',
         daysOfWeek: [
