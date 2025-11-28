@@ -19,7 +19,7 @@
           </div>
           <div class="form-group">
             <label>Top</label>
-            <input type="number" class="form-control" id="topmasv" name="topmasv" />
+            <input type="number" class="form-control" id="topmasv" name="topmasv" min="1" value="1"/>
             {{-- <select class="form-control select2" id="topmasv" name="topmasv" style="width: 100%;">
                   <option selected="selected" value=1>50</option>
                   <option selected="selected" value=2>30</option>
